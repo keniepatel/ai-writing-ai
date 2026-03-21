@@ -10,6 +10,10 @@ This project is a real-time AI system that allows users to:
 
 It uses **Computer Vision + Deep Learning** to provide an interactive experience.
 
+## 🌐 Demo Video
+👉 [https://www.loom.com/share/3d508f29d67d4492b2283eae4504cf29](https://www.loom.com/share/27748c9f67e74a39979d42d713e96ed7)
+## OR
+
 ---
 
 ## 🚀 Features
