@@ -13,7 +13,7 @@ It uses **Computer Vision + Deep Learning** to provide an interactive experience
 ## 🌐 Demo Video
 
 
-https://github.com/user-attachments/assets/f7d554a6-deba-4054-a3a9-0040d1b7ea59
+https://github.com/user-attachments/assets/33e17676-f066-4058-b1f7-6b14e56c523f
 
 
 
