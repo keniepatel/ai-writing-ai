@@ -4,8 +4,9 @@ import numpy as np
 import os
 
 # ===== CREATE FOLDERS =====
-for folder in ["dataset/A", "dataset/B", "dataset/C"]:
-    os.makedirs(folder, exist_ok=True)
+LETTERS = "ABCDEFG"
+for name in LETTERS:
+    os.makedirs(f"dataset/{name}", exist_ok=True)
 
 
 # ===== AUTO FILE NAME =====
@@ -76,26 +77,17 @@ while True:
 
     # ===== UI =====
     draw_text(combined, "DATA COLLECTION MODE", (10, 25), 0.7)
-    draw_text(combined, "A: Save A | B: Save B | C: Save C", (10, 60), 0.6)
+    draw_text(combined, "A-G: Save that letter", (10, 60), 0.6)
     draw_text(combined, "SPACE: Clear | ESC: Exit", (10, 90), 0.6)
 
     key = cv2.waitKey(1)
 
     # ===== SAVE =====
-    if key == ord('a'):
-        path = get_next_filename("dataset/A")
+    if key != -1 and chr(key & 0xFF).upper() in LETTERS:
+        letter = chr(key & 0xFF).upper()
+        path = get_next_filename(f"dataset/{letter}")
         cv2.imwrite(path, canvas)
-        print("Saved A:", path)
-
-    if key == ord('b'):
-        path = get_next_filename("dataset/B")
-        cv2.imwrite(path, canvas)
-        print("Saved B:", path)
-
-    if key == ord('c'):
-        path = get_next_filename("dataset/C")
-        cv2.imwrite(path, canvas)
-        print("Saved C:", path)
+        print(f"Saved {letter}:", path)
 
     # ✅ CLEAR WITH SPACE
     if key == 32:

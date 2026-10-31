@@ -25,6 +25,8 @@ train_data = train_datagen.flow_from_directory(
     subset='training'
 )
 
+print("Class indices:", train_data.class_indices)
+
 val_data = train_datagen.flow_from_directory(
     'dataset',
     target_size=(img_size, img_size),
@@ -61,7 +63,8 @@ model.compile(
 # ✅ Train longer
 model.fit(train_data, validation_data=val_data, epochs=20)
 
-# Save model
+# predict.py loads the HDF5 file. Keras 3 also keeps a .keras copy.
+model.save("model.h5")
 model.save("model.keras")
 
 print("Model trained and saved!")
