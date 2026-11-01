@@ -1,134 +1,107 @@
-# ✍️ Air Writing & Hand Gesture Recognition System
+# Air Writing & Hand Gesture Recognition
 
-## 📌 Overview
+Real-time system that turns an index-finger stroke in the air into letters A–G, and maps a simple finger count to A, B, or C.
 
-This project is a real-time AI system that allows users to:
+It uses a webcam, MediaPipe hand tracking, and a small Keras CNN.
 
-* Write letters in the air using hand gestures
-* Recognize hand signs (finger counting)
-* Convert gestures into text
+## Features
 
-It uses **Computer Vision + Deep Learning** to provide an interactive experience.
+- Air writing with the index finger for letters A–G
+- Pen colors: blue, red, green, and yellow
+- Sign mode: 1, 2, or 3 raised fingers become A, B, or C
+- Word building, with a confidence check before a letter is added
+- CNN trained on grayscale letter images
 
-## 🌐 Demo Video
+## Technologies
 
+- Python
+- OpenCV
+- MediaPipe
+- TensorFlow / Keras
+- NumPy
 
-https://github.com/user-attachments/assets/989d6bb5-fa0e-4428-9ab2-e1ee5ab5e734
-
-
----
-
-## 🚀 Features
-
-* ✍️ Air writing using index finger
-* ✋ Hand sign recognition (1,2,3 fingers → A,B,C)
-* 🔄 Toggle between Air Mode and Sign Mode
-* 🔤 Word formation
-* 🎨 Real-time drawing interface
-* 🧠 CNN-based character recognition
-
----
-
-## 🛠️ Technologies Used
-
-* Python
-* OpenCV
-* MediaPipe
-* TensorFlow / Keras
-* NumPy
-
----
-
-## 📂 Project Structure
+## Project structure
 
 ```
 air-writing-ai/
-│
 ├── dataset/
-│   ├── A/
-│   ├── B/
-│   ├── C/
-│
-├── model.keras
+│   ├── A/ … G/
+├── generate_letters.py
 ├── main.py
 ├── train_model.py
 ├── predict.py
+├── model.h5
+├── model.keras
 ├── requirements.txt
+└── LICENSE
 ```
 
----
+`predict.py` loads `model.h5`. `train_model.py` writes both `model.h5` and `model.keras`.
 
-## ⚙️ Installation
+## Installation
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/air-writing-ai.git
-cd air-writing-ai
-
+git clone https://github.com/keniepatel/ai-writing-ai.git
+cd ai-writing-ai
 pip install -r requirements.txt
 ```
 
----
+A webcam is required for collection and prediction.
 
-## ▶️ Usage
+## Usage
 
-### 1️⃣ Collect Data
+Collect letter images. Press A–G to save the current canvas into that letter’s folder. Space clears the canvas. Esc exits.
 
 ```bash
 python main.py
 ```
 
-### 2️⃣ Train Model
+Train the CNN on `dataset/`. This overwrites `model.h5` and `model.keras`.
 
 ```bash
 python train_model.py
 ```
 
-### 3️⃣ Run Application
+Run recognition.
 
 ```bash
 python predict.py
 ```
 
----
+`generate_letters.py` draws extra D–G samples in the same bright-stroke style as the collected images:
 
-## 🎮 Controls
+```bash
+python generate_letters.py
+```
 
-| Key   | Action        |
-| ----- | ------------- |
-| T     | Toggle Mode   |
-| P     | Predict       |
-| C     | Clear Drawing |
-| R     | Reset Word    |
-| SPACE | Add Space     |
-| ESC   | Exit          |
+## Controls
 
----
+Data collection (`main.py`):
 
-## 🧠 How It Works
+| Key | Action |
+| --- | --- |
+| A–G | Save the drawing as that letter |
+| Space | Clear the canvas |
+| Esc | Exit |
 
-* MediaPipe detects hand landmarks
-* Index finger is used to draw in air
-* Drawing is processed and fed into CNN model
-* Model predicts characters (A, B, C)
-* Finger counting is used for sign recognition
+Recognition (`predict.py`):
 
----
+| Key | Action |
+| --- | --- |
+| T | Toggle air mode and sign mode |
+| P | Predict and append a letter when confident |
+| C | Clear the drawing |
+| R | Reset the word |
+| Space | Add a space |
+| 1–4 | Pen color: blue, red, green, yellow |
+| Esc | Exit |
 
-## 📈 Future Improvements
+In sign mode, show 1, 2, or 3 fingers, then press P.
 
-* Add full A–Z recognition
-* Improve model accuracy
-* Add GUI interface
-* Add speech output
+## How it works
 
----
+MediaPipe finds one hand. In air mode the index fingertip draws on a black canvas. Before prediction, the ink is cropped, scaled, and centered so it matches the training images. A grayscale CNN then scores letters A–G. A letter is added to the word only when the top score is above 0.5.
 
-## 👨‍💻 Author
+## Author
 
-Rahul Prasad
-
----
-
-## ⭐ If you like this project
-
-Give it a ⭐ on GitHub!
+Keni Patel
